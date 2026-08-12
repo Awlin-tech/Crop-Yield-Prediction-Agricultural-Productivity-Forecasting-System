@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-paper: #F5F1E6;
+  --color-ink: #221D14;
+  --color-canopy: #4C7A3D;
+  --color-canopy-deep: #35592A;
+  --color-wheat: #D9A441;
+  --color-clay: #B5502E;
+  --color-horizon-top: #8C6A3F;
+  --color-horizon-mid: #5E4A31;
+  --color-horizon-low: #33301F;
+  --color-line: #E3DBC6;
+}
+
+.dark {
+  --color-paper: #14120F;
+  --color-ink: #EBE7DD;
+  --color-canopy: #62A353;
+  --color-canopy-deep: #48823B;
+  --color-wheat: #E8B658;
+  --color-clay: #C96647;
+  --color-horizon-top: #9E7B50;
+  --color-horizon-mid: #705A3F;
+  --color-horizon-low: #45422F;
+  --color-line: #2F291F;
+}
+
+* {
+  border-radius: 0 !important;
+  transition: background-color 0.25s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.25s cubic-bezier(0.4, 0, 0.2, 1), color 0.15s ease-out;
+}
+
+::selection {
+  background-color: var(--color-wheat);
+  color: var(--color-paper);
+}
+
+/* Custom scrollbars for ledger feel */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-paper);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-line);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-canopy);
+}
+
+/* Visible keyboard focus everywhere — accessibility floor */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--color-canopy);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* Custom premium animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-fade-in-up-delay-1 {
+  animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
+  opacity: 0;
+}
+
+.animate-fade-in-up-delay-2 {
+  animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+  opacity: 0;
+}
