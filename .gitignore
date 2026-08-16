@@ -14,3 +14,4 @@ node_modules/
 .DS_Store
 
 yieldsense-backend/data/model_assets.pkl
+yieldsense-frontend/tsconfig.tsbuildinfo
