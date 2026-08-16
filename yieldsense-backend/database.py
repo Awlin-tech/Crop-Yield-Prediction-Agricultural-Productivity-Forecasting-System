@@ -1,8 +1,5 @@
 """
 database.py — connection handling for the YieldSense PostgreSQL store.
-
-Uses plain psycopg2 (no ORM) to keep Milestone 1 lightweight. Swap in
-SQLAlchemy later if the schema grows past Milestone 2.
 """
 import os
 from contextlib import contextmanager

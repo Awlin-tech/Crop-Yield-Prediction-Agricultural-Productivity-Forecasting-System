@@ -1,0 +1,48 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: yieldsense-db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=yieldsense_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d yieldsense_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: ./yieldsense-backend
+    container_name: yieldsense-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:password@db:5432/yieldsense_db
+      - JWT_SECRET_KEY=1c5f22f319fd0d91bf70c19592bd1c403d4b408271ec9ec5d206672a53f37807
+      - JWT_ALGORITHM=HS256
+      - JWT_EXPIRE_HOURS=8
+      - WEATHER_API_BASE_URL=https://api.openweathermap.org/data/2.5
+      - WEATHER_API_KEY=your_meteorological_api_key_here
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    build: ./yieldsense-frontend
+    container_name: yieldsense-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_BASE_URL=http://localhost:8000
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:
